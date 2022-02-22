@@ -1,5 +1,5 @@
 
-from fastapi import Body, FastAPI
+from fastapi import FastAPI
 from pydantic import BaseModel
 import app.gslides as SlidesAPI
 
@@ -8,8 +8,6 @@ app = FastAPI()
 class Presentation(BaseModel):
     presentationID: str
 
-class File(BaseModel):
-    fileID: str
 
 @app.get("/")
 def read_root():
@@ -22,6 +20,9 @@ def get_slides(presentation: Presentation):
     return(slides)
 
 # Unused Drive API calls for getting list of files.
+
+# class File(BaseModel):
+#     fileID: str
 
 # @app.get("/files")
 # def get_files():

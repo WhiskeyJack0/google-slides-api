@@ -7,6 +7,8 @@ SCOPE = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/au
 class Client:
 
         def __init__(self):
+                #TODO 1: Improve auth flow to not just rely on stored credentials (launching login flow might be too intrusive?)
+                #TODO 2: Return proper errors when the google api call fails
                 self.creds = ServiceAccountCredentials.from_json_keyfile_name('app/.credentials/service_credentials.json', SCOPE)
                 self.slides_service = build('slides', 'v1', credentials=self.creds)
                 self.drive_service = build('drive', 'v3', credentials=self.creds)
@@ -35,6 +37,7 @@ class Client:
                                         fields='*').execute()
                 return results
         
+# Main API : returns a dict of slide-ids 
 def get_slideid_dict(presentationID):
         client = Client()
         slides = client.get_slides(client.get_presentation(presentationID))
@@ -43,6 +46,8 @@ def get_slideid_dict(presentationID):
                 slide_dict[i] = slide.get('objectId')
         slide_dict['total'] = len(slide_dict.keys())
         return slide_dict
+
+#Unused (for now) drive api calls
 def get_drive_info():
         client = Client()
         files = client.get_filelist()
