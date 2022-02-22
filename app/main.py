@@ -5,8 +5,6 @@ import app.gslides as SlidesAPI
 
 app = FastAPI()
 
-PRESENTATION_ID = '1NoJ7lyNxx5JlOwL_ZGHx_AteqgrsrFv2dcQskWWXT-0'
-
 class Presentation(BaseModel):
     presentationID: str
 
